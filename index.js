@@ -6,7 +6,7 @@ const colors = require("colors");
 const app = require("./app");
 
 // database connection
-mongoose.connect("mongodb://0.0.0.0:27017").then(() => {
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.Db_PASS}@cluster0.yiw1nyf.mongodb.net/?retryWrites=true&w=majority`).then(() => {
     console.log(`Database connection is successful 🛢`.red.bold);
 });
 
