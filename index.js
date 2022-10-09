@@ -10,6 +10,7 @@ const port = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
+const authRoute = require('./routes/auth.route');
 
 // DBConnect();
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.yiw1nyf.mongodb.net/?retryWrites=true&w=majority`).then(() => {
@@ -19,10 +20,12 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cl
 
 // server
 app.get("/", (req, res) => {
-    res.send("Tour Management System server");
+    res.send("server is running");
 });
 
 
+app.use('/user', authRoute);
+
 app.listen(port, () => {
-    console.log(`Tour Management System is running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });
