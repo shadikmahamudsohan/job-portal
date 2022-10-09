@@ -12,7 +12,7 @@ app.use(express.json());
 
 
 // DBConnect();
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.Db_PASS}@cluster0.yiw1nyf.mongodb.net/?retryWrites=true&w=majority`).then(() => {
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.yiw1nyf.mongodb.net/?retryWrites=true&w=majority`).then(() => {
     console.log("Connected to database");
 });
 
