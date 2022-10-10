@@ -41,7 +41,6 @@ exports.getManagerJob = async (req, res) => {
 exports.JobDetailsById = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id);
         const result = await hiringMangerService.getJobsByIdService(id);
 
         if (!result) {
