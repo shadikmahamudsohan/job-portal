@@ -12,7 +12,7 @@ exports.signup = async (req, res) => {
     } catch (error) {
         res.status(400).json({
             status: "Fail",
-            error: "can't create an account"
+            error: error.message
         });
     }
 };
@@ -21,13 +21,12 @@ exports.singIn = async (req, res) => {
         const { password, email } = req.body;
         const user = await services.getUserService(email);
         if (!user) {
-            res.status(401).json({
+            return res.status(401).json({
                 status: "Fail",
                 error: "your don't have an account"
             });
         }
         const isPasswordValid = user.comparePassword(password, user.password);
-        const token = generateToken(user);
 
         if (!isPasswordValid) {
             return res.status(403).json({
@@ -35,6 +34,7 @@ exports.singIn = async (req, res) => {
                 error: "Password is not correct",
             });
         }
+        const token = generateToken(user);
 
         res.status(200).json({
             status: "Successfully signed in",
@@ -44,6 +44,24 @@ exports.singIn = async (req, res) => {
         res.status(400).json({
             status: "Fail",
             error
+        });
+    }
+};
+
+exports.getMe = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        const user = await services.getUserService(email);
+
+        res.status(200).json({
+            status: "success",
+            data: user,
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            error,
         });
     }
 };

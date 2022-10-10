@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 const authRoute = require('./routes/auth.route');
+const hiringManagerRoute = require('./routes/hiringManger.route');
 
 // DBConnect();
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.yiw1nyf.mongodb.net/?retryWrites=true&w=majority`).then(() => {
@@ -18,13 +19,17 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cl
 });
 
 
-// server
 app.get("/", (req, res) => {
     res.send("server is running");
 });
 
-
 app.use('/user', authRoute);
+app.use('/', hiringManagerRoute);
+
+app.all("*", (req, res) => {
+    res.send("NO route found.");
+});
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

@@ -30,14 +30,14 @@ const userSchema = mongoose.Schema({
             validator: function (value) {
                 return value === this.password;
             },
-            message: "Passwords don't match!",
+            message: "Password {VALUE} don't match!",
         },
     },
 
     role: {
         type: String,
-        enum: ["user", "admin"],
-        default: "user",
+        enum: ["candidate", "hiringManager", "admin"],
+        default: "candidate",
     },
 
     confirmationToken: String,
@@ -54,6 +54,15 @@ userSchema.pre("save", function (next) {
     const hashedPassword = bcrypt.hashSync(password);
     this.password = hashedPassword;
     this.confirmPassword = undefined;
+
+    const email = this.email;
+
+    if (email === "admin@gmail.com") {
+        this.role = "admin";
+    } else {
+        this.role = "candidate";
+    }
+
     next();
 });
 
