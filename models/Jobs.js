@@ -21,12 +21,6 @@ const jobSchema = mongoose.Schema({
         type: Number,
         required: [true, "Please set the salary amount"]
     },
-    applied: [{
-        type: String,
-        validate: [validator.isEmail, "Provide a valid Email"],
-        trim: true,
-        lowercase: true,
-    }],
 
     managerId: ObjectId,
     deadline: {

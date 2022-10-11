@@ -21,9 +21,11 @@ exports.getJobsByIdService = async (id) => {
 };
 
 exports.applyJobByIdService = async (email, job) => {
-    return await Apply.create({ email, job });
+    const jobType = job.jobType;
+    const jobId = job.jobId;
+    return await Apply.create({ email, jobType, jobId });
 };
 
-exports.getAppliedByEmail = async (email) => {
-    return await Apply.findOne({ email });
+exports.getAppliedById = async (id) => {
+    return await Apply.findOne({ jobId: id });
 };

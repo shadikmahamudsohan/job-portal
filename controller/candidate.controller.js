@@ -36,27 +36,31 @@ exports.getCandidateJobById = async (req, res) => {
     } catch (error) {
         res.status(400).json({
             status: "fail",
-            error: "Couldn't get the brands",
+            error: "Couldn't get the job",
         });
     }
 };
 
-exports.applyJobById = async (req, res) => {
+exports.applyJobById = async (req, res, next) => {
     try {
         const { id } = req.params;
 
         const job = await candidateService.getJobsByIdService(id);
-
         if (!job) {
             return res.status(400).json({
                 status: "fail",
                 error: "Couldn't find the job with this id"
             });
         }
+        if (!req.user.email) {
+            return res.status(401).json({
+                status: "fail",
+                error: "email not found"
+            });
+        }
+        const isApplied = await candidateService.getAppliedById(id);
 
-        const appleData = await candidateService.getAppliedByEmail(req.user.email);
-
-        if (appleData.email === req.user.email) {
+        if (isApplied) {
             return res.status(405).json({
                 status: "fail",
                 error: "You already applied for this job"
@@ -88,12 +92,16 @@ exports.applyJobById = async (req, res) => {
 
         res.status(200).json({
             status: "success",
-            data: job,
+            data: "successfully applied for the job.",
         });
+
+
+        next();
     } catch (error) {
+        console.log(error);
         res.status(400).json({
             status: "fail",
-            error: "Couldn't get the brands",
+            error: "Couldn't get the job",
         });
     }
 };

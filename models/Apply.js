@@ -9,10 +9,8 @@ const applySchema = mongoose.Schema({
         trim: true,
         lowercase: true,
     },
-    job: {
-        jobType: String,
-        jobId: ObjectId
-    }
+    jobType: String,
+    jobId: ObjectId
 
 }, {
     timestamps: true

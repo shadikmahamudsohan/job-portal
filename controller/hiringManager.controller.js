@@ -58,7 +58,7 @@ exports.JobDetailsById = async (req, res) => {
     } catch (error) {
         res.status(400).json({
             status: "fail",
-            error: "Couldn't get the brands",
+            error: "Couldn't get the job",
         });
     }
 };
