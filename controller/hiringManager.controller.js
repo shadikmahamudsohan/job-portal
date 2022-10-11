@@ -4,6 +4,7 @@ exports.createJob = async (req, res) => {
     try {
         const result = await hiringMangerService.createJobService(req.body);
         result.addManagerId(req.user?.id);
+        result.setDeadline(req.body.deadline);
 
         await result.save({ validateBeforeSave: false });
 

@@ -3,7 +3,7 @@ const validator = require("validator");
 const { ObjectId } = mongoose.Schema.Types;
 
 const jobSchema = mongoose.Schema({
-    name: {
+    jobType: {
         type: String,
         trim: true,
         required: [true, "Please provide a job name"],
@@ -13,15 +13,26 @@ const jobSchema = mongoose.Schema({
         type: String,
         required: [true, "Please provide a job price"]
     },
-
-    salary: {
+    location: {
+        type: String,
+        required: [true, "Please provide a job location"]
+    },
+    salaryRange: {
         type: Number,
         required: [true, "Please set the salary amount"]
     },
+    applied: [{
+        type: String,
+        validate: [validator.isEmail, "Provide a valid Email"],
+        trim: true,
+        lowercase: true,
+    }],
 
-    managerId: {
-        type: ObjectId,
-    }
+    managerId: ObjectId,
+    deadline: {
+        type: String,
+        required: [true, "Please set a deadline for this job"]
+    },
 }, {
     timestamps: true
 });
@@ -29,6 +40,13 @@ const jobSchema = mongoose.Schema({
 jobSchema.methods.addManagerId = function (id) {
     console.log("id in addManagerId", id);
     this.managerId = id;
+};
+
+jobSchema.methods.setDeadline = function (day) {
+    const date = new Date();
+    console.log("current date", date);
+    date.setDate(date.getDate() + day);
+    this.deadline = date;
 };
 
 const Jobs = mongoose.model("Jobs", jobSchema);
