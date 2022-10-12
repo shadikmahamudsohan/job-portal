@@ -13,6 +13,7 @@ app.use(express.json());
 const authRoute = require('./routes/auth.route');
 const hiringManagerRoute = require('./routes/hiringManger.route');
 const candidateRoute = require('./routes/candidate.route');
+const adminRoute = require('./routes/admin.route');
 
 // DBConnect();
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.yiw1nyf.mongodb.net/?retryWrites=true&w=majority`).then(() => {
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 app.use('/user', authRoute);
 app.use('/', hiringManagerRoute);
 app.use('/', candidateRoute);
+app.use('/', adminRoute);
 
 
 app.all("*", (req, res) => {
