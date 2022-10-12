@@ -93,6 +93,7 @@ exports.applyJobById = async (req, res, next) => {
         res.status(200).json({
             status: "success",
             data: "successfully applied for the job.",
+            pdf: req.file
         });
 
 

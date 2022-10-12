@@ -4,10 +4,8 @@ const { generateToken } = require("../utils/token");
 exports.signup = async (req, res) => {
     try {
         const user = await services.signupService(req.body);
-        const token = generateToken(user);
         res.status(200).json({
             status: "Successfully signed in",
-            token: token,
         });
     } catch (error) {
         res.status(400).json({
