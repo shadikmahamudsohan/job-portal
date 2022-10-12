@@ -9,6 +9,8 @@ const applySchema = mongoose.Schema({
         trim: true,
         lowercase: true,
     },
+    pdf: Object,
+
     jobType: String,
     jobId: ObjectId
 

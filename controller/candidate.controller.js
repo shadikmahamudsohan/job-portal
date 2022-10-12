@@ -81,7 +81,7 @@ exports.applyJobById = async (req, res, next) => {
             jobId: id
         };
 
-        const apply = await candidateService.applyJobByIdService(req.user.email, jobData);
+        const apply = await candidateService.applyJobByIdService(req.user.email, jobData, req?.file);
 
         if (!apply) {
             res.status(400).json({

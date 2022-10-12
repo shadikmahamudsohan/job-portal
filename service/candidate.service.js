@@ -20,10 +20,10 @@ exports.getJobsByIdService = async (id) => {
     return await Jobs.findOne({ _id: id });
 };
 
-exports.applyJobByIdService = async (email, job) => {
+exports.applyJobByIdService = async (email, job, pdf) => {
     const jobType = job.jobType;
     const jobId = job.jobId;
-    return await Apply.create({ email, jobType, jobId });
+    return await Apply.create({ email, jobType, jobId, pdf });
 };
 
 exports.getAppliedById = async (id) => {
