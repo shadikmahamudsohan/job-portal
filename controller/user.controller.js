@@ -48,7 +48,7 @@ exports.singIn = async (req, res) => {
 
 exports.getMe = async (req, res) => {
     try {
-        const { email } = req.body;
+        const { email } = req.user;
 
         const user = await services.getUserService(email);
 
